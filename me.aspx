@@ -59,6 +59,7 @@
 
             var preScripts1 = div.find("#preCultureFlushScripts > script").eq(0).attr("src");
             var preScripts2 = div.find("#preCultureFlushScripts > script").eq(1).attr("src");
+            var preScripts3 = div.find("#preCultureFlushScripts > script").eq(2).attr("src");
             var postScripts = div.find("#postCultureFlushScripts > script").eq(0).attr("src");
             var configScript = div.find("#configScript > script").eq(0).html();
             var postConfigScript = div.find("#configScript").next().html();
@@ -66,17 +67,19 @@
 
             jQuery.getScript(preScripts1, function() {
               jQuery.getScript(preScripts2, function() {
-                jQuery.getScript(postScripts, function() {
-
-                    eval(configScript)
-                    eval(postConfigScript)
-                    eval(availabilityFlushScripts)
-
-                    // JS Customization
-                    jQuery("#ContactModule").waitUntilExists(function() {
-                      jQuery("#ContactModule > h3 > .UserProperty-title").text("My Info")
-                    });
-
+                jQuery.getScript(preScripts3, function() {
+                  jQuery.getScript(postScripts, function() {
+  
+                      eval(configScript)
+                      eval(postConfigScript)
+                      eval(availabilityFlushScripts)
+  
+                      // JS Customization
+                      jQuery("#ContactModule").waitUntilExists(function() {
+                        jQuery("#ContactModule > h3 > .UserProperty-title").text("My Info")
+                      });
+                      
+                  })
                 })
               })
             })
